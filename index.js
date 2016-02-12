@@ -1,3 +1,5 @@
+var assert = require('assert');
+
 function Promise() {
   this.tag = "";
   this.delivered = false;
@@ -114,6 +116,23 @@ function argsToArray(x) {
   return Array.prototype.slice.call(x);
 }
 
-prototype.exports.argsToArray = argsToArray;
-prototype.exports.ArgArray = ArgArray;
-prototype.exports.Promise = Promise;
+/*
+    How to get the names of function parameters:
+    
+      http://stackoverflow.com/questions/1007981/how-to-get-function-parameter-names-values-dynamically-from-javascript
+*/
+var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+var ARGUMENT_NAMES = /([^\s,]+)/g;
+function getParamNames(func) {
+  var fnStr = func.toString().replace(STRIP_COMMENTS, '');
+  var result = fnStr.slice(fnStr.indexOf('(')+1, fnStr.indexOf(')')).match(ARGUMENT_NAMES);
+  if(result === null)
+     result = [];
+  return result;
+}
+
+
+module.exports.argsToArray = argsToArray;
+module.exports.ArgArray = ArgArray;
+module.exports.Promise = Promise;
+module.exports.getParamNames = getParamNames;
