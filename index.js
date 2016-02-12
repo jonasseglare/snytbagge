@@ -113,3 +113,7 @@ ArgArray.prototype.makeSetter = function(index) {
 function argsToArray(x) {
   return Array.prototype.slice.call(x);
 }
+
+prototype.exports.argsToArray = argsToArray;
+prototype.exports.ArgArray = ArgArray;
+prototype.exports.Promise = Promise;
